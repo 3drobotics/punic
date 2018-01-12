@@ -25,6 +25,7 @@ from punic import *
 from .runner import *
 from .checkout import *
 from .search import *
+from .xcode import Xcode
 
 @click.group(cls=DYMGroup)
 @click.option('--echo', default=False, is_flag=True, help="""Echo all commands to terminal.""")
@@ -297,6 +298,11 @@ def readme(context):
 @click.pass_context
 def list(context, **kwargs):
     """Lists all platforms, projects, xcode projects, schemes for all dependencies."""
+
+    print('Xcodes:')
+    for xcode in Xcode.find_all():
+        print('\t', xcode)
+
     punic = context.obj
     punic.config.update(**kwargs)
     deps = kwargs['deps']
@@ -312,6 +318,7 @@ def list(context, **kwargs):
 
     checkouts = [Checkout(punic=punic, identifier=identifier, revision=revision) for identifier, revision in filtered_dependencies]
 
+    print('Project/Workspace:')
     tree = {}
 
     for platform in platforms:
