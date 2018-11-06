@@ -66,7 +66,7 @@ class CarthageCache(object):
         temp_dir = tempfile.mkdtemp()
         temp_archive_path = Path(temp_dir) / archive_file_name
 
-        with zipfile.ZipFile(str(temp_archive_path), 'w', zipfile.ZIP_DEFLATED) as archive:
+        with zipfile.ZipFile(str(temp_archive_path), mode='w', compression=zipfile.ZIP_DEFLATED, allowZip64=True) as archive:
             def zipdir(root, ziph):
                 all_files = list(walk_directory(root))
 
