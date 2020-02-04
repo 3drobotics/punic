@@ -78,14 +78,17 @@ class Xcode(object):
 
         return True
 
-
     def __init__(self, path):
         assert(path.is_dir())
-        assert(path.suffix == '.app')
-
-        self.path = path
-        self.is_default = False
-        self.developer_dir_path = self.path / 'Contents/Developer'
+        if (path.stem == 'CommandLineTools'):
+            self.path = path = Path('/Applications/Xcode.app')
+            self.is_default = False
+            self.developer_dir_path = self.path
+        else:
+            assert(path.suffix == '.app')
+            self.path = path
+            self.is_default = False
+            self.developer_dir_path = self.path / 'Contents/Developer'
 
     @mproperty
     def version(self):
