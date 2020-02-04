@@ -135,7 +135,12 @@ class Punic(object):
         # type: (bool, [str]) -> [(ProjectIdentifier, Revision)]
 
         cartfile = Cartfile(use_ssh=self.config.use_ssh, overrides=config.repo_overrides)
-        cartfile.read(self.config.root_path / 'Cartfile.resolved')
+
+        resolved_path = self.config.root_path / 'Cartfile.resolved'
+        if not resolved_path.exists():
+            return []
+
+        cartfile.read(resolved_path)
 
         def _predicate_to_revision(spec):
             repository = self._repository_for_identifier(spec.identifier)

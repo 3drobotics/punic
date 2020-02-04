@@ -99,6 +99,8 @@ class Resolver(object):
 
         ################################################################################################################
 
+        logging.debug('<sub>Creating new filtered graph</sub>')
+
         graph = self.build_graph(dependency_filter=lambda child, child_version: (child, child_version) in dependencies)
 
         logging.debug('Pruned universal graph has {} nodes, {} edges.'.format(number_of_nodes(graph), number_of_edges(graph)))

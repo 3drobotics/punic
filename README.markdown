@@ -1,5 +1,11 @@
 # punic [![Travis][image_1]][link_1] [![license][image_2]][link_2] [![tag][image_3]][link_3]
 
+## IMPORTANT
+
+Due to work restrictions I can no longer contribute or maintain this project. I'd be happy to pass over ownership onto any interested party who is willing to maintain it. Please let me know: [schwa@schwa.com](mailto:schwa@schwa.com)
+
+---
+
 [image_1]: https://img.shields.io/travis/schwa/punic.svg?maxAge=3600
 [link_1]: https://travis-ci.org/schwa/punic/branches
 [image_2]: https://img.shields.io/github/license/schwa/punic.svg?maxAge=3600

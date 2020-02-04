@@ -60,9 +60,9 @@ docs/_build/
 target/
 
 .idea
+.ropeproject
 
 local_testing.py
 
 **/Carthage/Build
 **/Carthage/Checkouts
-

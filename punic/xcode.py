@@ -12,6 +12,7 @@ import logging
 from .runner import *
 from .semantic_version import *
 from .errors import *
+from .utilities import *
 
 class Xcode(object):
     _all_xcodes = None
@@ -42,9 +43,10 @@ class Xcode(object):
     def find_all(cls):
         if Xcode._all_xcodes is None:
 
-            all_xcodes = set()
+            all_xcodes = list(Path("/Applications").glob("Xcode*.app"))
+            all_xcodes = [path for path in all_xcodes if Xcode.is_xcode(path)]
 
-            all_xcodes.update(Xcode(path) for path in Path("/Applications").glob("Xcode*.app"))
+            all_xcodes = set([Xcode(path) for path in all_xcodes])
 
             output = runner.check_run('/usr/bin/mdfind \'kMDItemCFBundleIdentifier="com.apple.dt.Xcode" and kMDItemContentType="com.apple.application-bundle"\'')
             all_xcodes.update(Xcode(Path(path)) for path in output.strip().split("\n") if path)
@@ -62,6 +64,21 @@ class Xcode(object):
 
         return Xcode._all_xcodes
 
+    @classmethod
+    def is_xcode(cls, path):
+        if not path.is_dir():
+            return False
+        if path.suffix != '.app':
+            return False
+
+        info_plist_path = path / 'Contents/Info.plist'
+        bundle_identifier = plist_get_key(info_plist_path, 'CFBundleIdentifier')
+        if bundle_identifier not in ['com.apple.dt.Xcode']:
+            return False
+
+        return True
+
+
     def __init__(self, path):
         assert(path.is_dir())
         assert(path.suffix == '.app')
@@ -78,8 +95,12 @@ class Xcode(object):
 
     @mproperty
     def internal_version(self):
-        output = self.check_call(['xcodebuild', '-version'], env={'DEVELOPER_DIR': str(self.developer_dir_path)})
-        match = re.match(r'^Xcode (?P<version>.+)\nBuild version (?P<build>.+)', output)
+        try:
+            output = self.check_call(['xcodebuild', '-version'], env={'DEVELOPER_DIR': str(self.developer_dir_path)})
+            match = re.match(r'^Xcode (?P<version>.+)\nBuild version (?P<build>.+)', output)
+        except Exception as e:
+            print(self.developer_dir_path)
+            raise
         return match.groupdict()['build']
 
 

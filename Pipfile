@@ -1,0 +1,42 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[requires]
+
+python_version = "2.7"
+
+
+[dev-packages]
+
+coverage = ">=4.3"
+pytest = ">=3.0"
+pytest-cov = ">=2.4"
+tox = ">=2.6"
+virtualenv = ">=15.1"
+
+
+[packages]
+
+affirm = "*"
+blessings = "*"
+boto = "*"
+click = "*"
+click-didyoumean = "*"
+decorator = "*"
+jsonpath-rw = "*"
+memoize = "*"
+networkx = "==1.11" # 2.0 requires some syntax level fixes. Defer for later.
+prompt-toolkit = "*"
+pyyaml = "*"
+requests = "*"
+tqdm = "*"
+wcwidth = "*"
+
+## Needed for python 3 compatibility
+"pathlib2" = "*"
+six = "*"
+"flufl.enum" = "*"
