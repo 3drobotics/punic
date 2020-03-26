@@ -44,7 +44,7 @@ class CarthageCache(object):
         swift_version = re.search(r'Swift version ((?:\d+\.)*(?:\d+))', output).group(1)
 
         resolve_file = Path('Cartfile.resolved').open().read()
-        data = '{}{}'.format(resolve_file, swift_version)
+        data = '{}{}'.format(resolve_file, swift_version).encode('utf-8')
         hash = hashlib.sha256(data).hexdigest()
         return hash
 
