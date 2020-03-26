@@ -15,7 +15,7 @@ check_libyaml()
 
 setup(
     name='punic',
-    version='0.2.13',
+    version='0.2.14',
     url='http://github.com/3drobotics/punic',
     license='MIT',
     author='Jonathan Wight',
@@ -30,8 +30,7 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: MacOS :: MacOS X',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Topic :: Software Development :: Build Tools',
         ],
     install_requires=[
